@@ -1,1 +1,3 @@
-# textcat
+# TextCat
+
+A simple text categorizer.

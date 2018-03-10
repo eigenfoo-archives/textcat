@@ -12,9 +12,9 @@ class TokenStatistics():
     ''' Helper class that stores the tf, idf and number of documents
     for a token. '''
     def __init__(self):
-        self.tf_dict = {}             # Key, value = category, tf
-        self.num_docs_with_token = 0  # Number of documents containing token
-        self.idf = 0                  # idf
+        self.tf_dict = defaultdict(lambda: 0)  # Key, value = category, tf
+        self.num_docs_with_token = 0            # Number of documents iwth token
+        self.idf = 0                            # idf
 
 
 class InvertedIndex():
@@ -44,7 +44,7 @@ class InvertedIndex():
                     self.inverted_index[token].tf_dict[category] += 1
 
                 for token in set(token_list):
-                    self.inverted_index[token].doc_count += 1
+                    self.inverted_index[token].num_docs_with_token += 1
 
                 self.num_documents += 1
 
@@ -83,12 +83,18 @@ class InvertedIndex():
 
 def tokenize(file_path):
     ''' Takes article path, and returns list of tokens. '''
-    return ['foobar']
+    tokens = []
+
+    with open(file_path, 'r') as f:
+        for line in f:
+            tokens += line.split()
+
+    return tokens
 
 
 if __name__ == '__main__':
-    train_labels_filename = input('Train labels file:')
-    model_filename = input('Train labels file:')
+    train_labels_filename = input('Train labels file:\t')
+    model_filename = input('Model checkpoint file:\t')
 
     print('Training text categorizer...')
 

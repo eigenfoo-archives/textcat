@@ -1,21 +1,20 @@
 '''
-File docstring
+Train a Rocchio-tfidf text categorizer.
 '''
 
 import os
 import math
 from collections import defaultdict
+import pickle
 
 
 class TokenStatistics():
-    '''
-    Helper class that stores the tf, idf and number of documents for a token
-    for a particular category.
-    '''
+    ''' Helper class that stores the tf, idf and number of documents
+    for a token. '''
     def __init__(self):
-        self.tf_dict = {}   # (key, value) = (category, tf)
+        self.tf_dict = {}             # Key, value = category, tf
         self.num_docs_with_token = 0  # Number of documents containing token
-        self.idf = 0
+        self.idf = 0                  # idf
 
 
 class InvertedIndex():
@@ -34,8 +33,8 @@ class InvertedIndex():
         train_dir_absolute_path = \
             os.path.dirname(os.path.abspath(train_labels_filename))
 
-        with open(train_labels_filename, 'r') as train_labels:
-            for line in train_labels:
+        with open(train_labels_filename, 'r') as f:
+            for line in f:
                 article_relative_path, category = line.split()
 
                 token_list = tokenize(os.path.join(train_dir_absolute_path,
@@ -56,7 +55,7 @@ class InvertedIndex():
                 math.log(self.num_documents /
                          self.inverted_index[token].num_docs_with_token)
 
-    def normalize_tfs(self):
+    def normalize_tfidfs(self):
         ''' Normalizes tf scores for each document in each category. '''
         normalization_constants = defaultdict(lambda: 0)
 
@@ -76,16 +75,29 @@ class InvertedIndex():
                 self.inverted_index[token].tf_dict[category] /= \
                     normalization_constants[category]
 
-    def save_inverted_index(self):
-        pass
+    def save(self, filename):
+        ''' Serializes InvertedIndex instance as a pickle object. '''
+        with open(filename, 'w') as f:
+            pickle.dump(self, f)
 
 
 def tokenize(file_path):
-    '''
-    Takes article path, and returns list of tokens
-    '''
+    ''' Takes article path, and returns list of tokens. '''
     return ['foobar']
 
 
 if __name__ == '__main__':
-    pass
+    train_labels_filename = input('Train labels file:')
+    model_filename = input('Train labels file:')
+
+    print('Training text categorizer...')
+
+    inverted_index = InvertedIndex()
+
+    inverted_index.compute_tfidfs(train_labels_filename)
+    print('Computed tf-idfs.')
+
+    inverted_index.normalize_tfidfs()
+    print('Normalized tf-idfs.')
+
+    inverted_index.save(model_filename)

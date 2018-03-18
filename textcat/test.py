@@ -9,7 +9,16 @@ from train import TokenStatistics, InvertedIndex, tokenize
 
 
 class RocchioCategorizer:
-    ''' Rocchio-tfidf text categorizer. '''
+    '''
+    Rocchio-tfidf text categorizer.
+    
+    Attributes
+    ----------
+    ii : InvertedIndex
+        Instance of InvertedIndex. Confusingly, ii has an attribute called
+        inverted_index, which is the actual dictionary containing term
+        frequencies.
+    '''
 
     def __init__(self, inverted_index):
         self.ii = inverted_index

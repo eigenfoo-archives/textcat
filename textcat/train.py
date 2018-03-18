@@ -7,6 +7,8 @@ import math
 from collections import defaultdict
 import dill as pickle
 import nltk
+from nltk.corpus import wordnet
+from nltk.tag.util import tuple2str
 
 
 class TokenStatistics:
@@ -142,25 +144,46 @@ class InvertedIndex:
 
 def tokenize(file_path):
     '''
-    Helper function to tokenize articles. Punkt tokenizer, stopwords.
+    Helper function to preprocess and tokenize articles.
+    Uses the Punkt tokenizer, filters out stopwords, and POS tags.
 
     Parameters
     ----------
     file_path : string
         Path to article to be tokenized.
     '''
+
     tokens = []
-    stop = set(nltk.corpus.stopwords.words('english'))
+    stopwords = set(nltk.corpus.stopwords.words('english'))
+    lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
 
     with open(file_path, 'r') as f:
         data = f.read().lower()
-        for sent in nltk.sent_tokenize(data):
-            for word in nltk.word_tokenize(sent):
-                if word not in stop:
-                    tokens += [word]
 
-    tokens = nltk.pos_tag(tokens)
+    for sent in nltk.sent_tokenize(data):
+        for word in nltk.word_tokenize(sent):
+            if word not in stopwords:
+                tokens += [word]
+
+    tagged_tokens = nltk.pos_tag(tokens)
+    tokens = [tuple2str((lemmatizer.lemmatize(token, penn_to_wordnet(tag)),
+                         tag))
+              for token, tag in tagged_tokens if token not in stopwords]
+
     return tokens
+
+
+def penn_to_wordnet(tag):
+    ''' Helper function to convert Penn Treebank tagset to WordNet tagset. '''
+    if tag in ['JJ', 'JJR', 'JJS']:
+        return wordnet.ADJ
+    elif tag in ['NN', 'NNS', 'NNP', 'NNPS']:
+        return wordnet.NOUN
+    elif tag in ['RB', 'RBR', 'RBS']:
+        return wordnet.ADV
+    elif tag in ['VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']:
+        return wordnet.VERB
+    return wordnet.NOUN
 
 
 if __name__ == '__main__':
@@ -178,5 +201,6 @@ if __name__ == '__main__':
     print('Normalized tf-idfs.')
 
     inverted_index.save(model_filename)
+    print('Saved model checkpoint.')
 
     print('Success.')

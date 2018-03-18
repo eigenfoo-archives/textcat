@@ -2,8 +2,46 @@
 
 A simple text categorizer.
 
-## Installation and Usage
+## Requirements
 
-Install necessary packages:
+* A Python 3.x interpreter (Python 2.x not supported!)
+* `pip` package manager (recommended)
 
-``` pip install -r requirements.txt ```
+## Installation
+
+To get `textcat` up and running, the following code snippet should suffice on a
+UNIX terminal:
+
+```
+$ git clone https://github.com/eigenfoo/textcat.git
+$ cd textcat
+$ pip install -r requirements.txt
+$ python nltk_download.py
+```
+
+This clones `textcat` from my [my GitHub
+repository](https://github.com/eigenfoo/textcat), installs all required Python
+packages using `pip`, and downloads all required `nltk` packages.
+
+## Usage
+
+To train:
+
+```
+python train.py
+```
+
+You will be prompted for:
+1. the filename of the list of labelled training documents, and 
+2. the filename where you wish the classifier to be saved.
+
+To test:
+
+```
+python test.py
+```
+
+You will be prompted for:
+1. the filename of the list of documents to be categorized, 
+2. the filename of the saved classifier,
+3. the filename where you wish the results to be written.

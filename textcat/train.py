@@ -145,10 +145,11 @@ class InvertedIndex:
 def tokenize(file_path):
     '''
     Helper function to preprocess and tokenize articles.
-    1) Tokenize using Punkt tokenizer
-    2) Part-of-speech tag using ???
-    3) Lemmatize using WordNet lemmatizer
-    4) Filter out stopwords
+    1) Lowercase
+    2) Tokenize using Punkt tokenizer
+    3) Part-of-speech tag using Averaged Perceptron tagger
+    4) Lemmatize using WordNet lemmatizer
+    5) Filter out stopwords
 
     Parameters
     ----------

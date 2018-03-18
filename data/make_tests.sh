@@ -1,3 +1,9 @@
+# Randomly segment the files corpus2_train.labels and corpus3_train.labels so as
+# to create a similar file structure to corpus1, with 1/3 train-test split.
+#
+# Run on a Mac OSX (note the use of gshuf, ghead and gtail). Simply remove the
+# g's to run on any other OS.
+
 gshuf corpus2_train.labels > segmented_corpus2_train.labels
 gtail -n 298 segmented_corpus2_train.labels > segmented_corpus2_test.labels
 ghead -n -298 segmented_corpus2_train.labels > temp.txt

@@ -3,6 +3,7 @@ Train a Rocchio-tfidf text categorizer.
 '''
 
 import os
+import sys
 import math
 from collections import defaultdict
 import dill as pickle
@@ -145,6 +146,7 @@ class InvertedIndex:
 def tokenize(file_path):
     '''
     Helper function to preprocess and tokenize articles.
+
     1) Lowercase
     2) Tokenize using Punkt tokenizer
     3) Part-of-speech tag using Averaged Perceptron tagger
@@ -166,8 +168,7 @@ def tokenize(file_path):
 
     for sent in nltk.sent_tokenize(data):
         for word in nltk.word_tokenize(sent):
-            if word not in stopwords:
-                tokens += [word]
+            tokens += [word]
 
     tagged_tokens = nltk.pos_tag(tokens)
     tokens = [tuple2str((lemmatizer.lemmatize(token, penn_to_wordnet(tag)),
@@ -190,9 +191,18 @@ def penn_to_wordnet(tag):
     return wordnet.NOUN
 
 
-if __name__ == '__main__':
-    train_labels_filename = input('Train labels file:\t')
-    model_filename = input('Model checkpoint file:\t')
+def main():
+    ''' Driver function for training program. '''
+    try:
+        train_labels_filename = sys.argv[1]
+        model_filename = sys.argv[2]
+    except IndexError:
+        msg = ("Usage: python train.py TRAIN_LABELS_FILENAME MODEL_FILENAME"
+               "\n\tTRAIN_LABELS_FILENAME: name of file with list of labelled "
+               "training documents\n\tMODEL_FILENAME: name of file where "
+               "model should should be saved")
+        print(msg)
+        return
 
     print('Training text categorizer...')
 
@@ -208,3 +218,7 @@ if __name__ == '__main__':
     print('Saved model checkpoint.')
 
     print('Success.')
+
+
+if __name__ == '__main__':
+    main()

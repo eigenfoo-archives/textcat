@@ -3,6 +3,7 @@ Test the Rocchio-tfidf text categorizer.
 '''
 
 import os
+import sys
 from collections import defaultdict
 import dill as pickle
 from train import TokenStatistics, InvertedIndex, tokenize
@@ -76,10 +77,21 @@ class RocchioCategorizer:
         return similarity
 
 
-if __name__ == '__main__':
-    test_list_filename = input('Test list file:\t\t')
-    model_filename = input('Model checkpoint file:\t')
-    output_filename = input('Output file:\t\t')
+def main():
+    ''' Driver function for testing program. '''
+    try:
+        test_list_filename = sys.argv[1]
+        model_filename = sys.argv[2]
+        output_filename = sys.argv[3]
+    except IndexError:
+        msg = ("Usage: python test.py TEST_LABELS_FILENAME MODEL_FILENAME "
+               "OUTPUT_FILENAME\n\tTEST_LABELS_FILENAME: name of file with "
+               "list of labelled training documents\n\tMODEL_FILENAME: name "
+               "of file where model should should be saved\n\tOUTPUT_FILENAME "
+               "name of file where categorization results should be written")
+        print(msg)
+        return
+
     print('Categorizing...')
 
     with open(model_filename, 'rb') as f:
@@ -96,3 +108,7 @@ if __name__ == '__main__':
                 textcat.categorize(test_list_path, doc.strip(), outfile)
 
     print('Success.')
+
+
+if __name__ == '__main__':
+    main()

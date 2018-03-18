@@ -5,19 +5,19 @@ Train a Rocchio-tfidf text categorizer.
 import os
 import math
 from collections import defaultdict
-import pickle
+import dill as pickle
 
 
-class TokenStatistics():
+class TokenStatistics:
     ''' Helper class that stores the tf, idf and number of documents
     for a token. '''
     def __init__(self):
         self.tf_dict = defaultdict(lambda: 0)  # Key, value = category, tf
-        self.num_docs_with_token = 0            # Number of documents iwth token
-        self.idf = 0                            # idf
+        self.num_docs_with_token = 0           # Number of documents with token
+        self.idf = 0                           # idf
 
 
-class InvertedIndex():
+class InvertedIndex:
     ''' Class that implements inverted index for Rocchio-tfidf. '''
 
     def __init__(self):
@@ -77,7 +77,7 @@ class InvertedIndex():
 
     def save(self, filename):
         ''' Serializes InvertedIndex instance as a pickle object. '''
-        with open(filename, 'w') as f:
+        with open(filename, 'wb') as f:
             pickle.dump(self, f)
 
 

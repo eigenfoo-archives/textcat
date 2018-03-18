@@ -94,3 +94,5 @@ if __name__ == '__main__':
         with open(output_filename, 'w') as outfile:
             for doc in test_file_list:
                 textcat.categorize(test_list_path, doc.strip(), outfile)
+
+    print('Success.')

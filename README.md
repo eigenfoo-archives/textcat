@@ -23,6 +23,11 @@ This clones `textcat` from my [my GitHub
 repository](https://github.com/eigenfoo/textcat), installs all required Python
 packages using `pip`, and downloads all required `nltk` packages.
 
+Note that, for the Python packages installed by `pip`, I have specified the
+package versions I had on the machine that I developed this program on. It is
+likely that the program will still work with more recent versions, but I have
+not tested this.
+
 ## Usage
 
 To train:

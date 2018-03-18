@@ -29,7 +29,7 @@ class InvertedIndex:
         self.num_documents = 0
 
     def compute_tfidfs(self, train_labels_filename):
-        ''' Computes tf values for training corpus. '''
+        ''' Computes tf and idf values for training corpus. '''
         train_dir_absolute_path = \
             os.path.dirname(os.path.abspath(train_labels_filename))
 

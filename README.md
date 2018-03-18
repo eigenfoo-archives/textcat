@@ -33,20 +33,20 @@ not tested this.
 To train:
 
 ```
-python train.py
+python train.py TRAIN_LABEL_FILENAME MODEL_FILENAME
 ```
 
-You will be prompted for:
+where the arguments are, in order:
 1. the filename of the list of labelled training documents, and 
 2. the filename where you wish the classifier to be saved.
 
 To test:
 
 ```
-python test.py
+python test.py TEST_LABEL_FILENAME MODEL_FILENAME OUTPUT_FILENAME
 ```
 
-You will be prompted for:
+where the arguments are, in order:
 1. the filename of the list of documents to be categorized, 
 2. the filename of the saved classifier,
 3. the filename where you wish the results to be written.

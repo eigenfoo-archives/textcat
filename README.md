@@ -92,3 +92,12 @@ Stop words were filtered using the built-in `nltk` stopword list, again, more as
 an action of habit than as a well thought-out decision. In any case, stopwords
 usually have low tf-idf values, and would not contribute much to the cosine
 similarity metric in any case.
+
+For the second corpus, it was found that stripping proper nouns and cardinal
+numbers led to minor improvements in categorization accuracy. This makes sense,
+as whether an image is taken indoors or outdoors does not depend on _who_ is
+indoors or outdoors. Thus, any article with fewer than 100 words was assumed to
+come from the second corpus, and had its proper nouns (both singular and plural)
+and cardinal numbers stripped. This is admittedly a clunky implementation, as
+there are some articles in the other two corpora with 100 words or fewer, but
+this error seems to cause no grievous problems.

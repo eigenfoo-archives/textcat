@@ -69,12 +69,13 @@ The linguistic preprocessing in the final categorizer is as follows:
 Lowercasing was done more as an act of habit than as a well thought-out
 decision.
 
-The tokenizer used is the Punkt tokenizer. Several tokenizers were considered
-(e.g. the Stanford Tokenizer and Penn Treebank Tokenizer). The Stanford
-Tokenizer is an improvement on the Penn Treebank Tokenizer, so the latter was
-not tested. The Stanford Tokenizer appeared to give similar performance to the
-Punkt tokenizer, and had a significantly more complicated interface (the Punkt
-tokenizer is the default in `nltk`), so the Punkt tokenizer was used.
+The tokenizer used is the Punkt tokenizer. Several other tokenizers were
+considered (e.g. the Stanford Tokenizer and Penn Treebank Tokenizer). The
+Stanford Tokenizer was found to be an improvement on the Penn Treebank
+Tokenizer, so the latter was not tested. The Stanford Tokenizer appeared to give
+similar performance to the Punkt tokenizer, and had a significantly more
+complicated interface (since the Punkt tokenizer is the default in `nltk`), so
+the Punkt tokenizer was used.
 
 The part-of-speech tagger used is the Averaged Perceptron Tagger. Tagging
 provided small boosts in performance, so it was adopted. The Averaged Perceptron

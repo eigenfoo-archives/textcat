@@ -6,7 +6,7 @@ import os
 import sys
 from collections import defaultdict
 import dill as pickle
-from train import TokenStatistics, InvertedIndex, tokenize
+from train import tokenize
 
 
 class RocchioCategorizer:
@@ -20,7 +20,6 @@ class RocchioCategorizer:
         inverted_index, which is the actual dictionary containing term
         frequencies.
     '''
-
     def __init__(self, inverted_index):
         self.ii = inverted_index
 
@@ -29,7 +28,6 @@ class RocchioCategorizer:
         Helper function to categorize one document and write the
         results to the outfile.
         '''
-
         # Generate list of tokens for the given document
         token_list = tokenize(os.path.join(test_list_path, doc_path))
 
@@ -56,11 +54,10 @@ class RocchioCategorizer:
             Category to compute similarity to (i.e. compute similarity to this
             category's centroid)
         '''
-
         doc_tfs = defaultdict(lambda: 0)
         similarity = 0
 
-        # Compute tfs of document
+        # Compute tfs
         for token in token_list:
             doc_tfs[token] += 1
 
@@ -71,7 +68,6 @@ class RocchioCategorizer:
                 category_tf = self.ii.inverted_index[token].tf_dict[category]
                 doc_tf = doc_tfs[token]
                 idf = self.ii.inverted_index[token].idf
-                # FIXME Are we already normalized...?
                 similarity += category_tf * doc_tf * (idf ** 2)
 
         return similarity

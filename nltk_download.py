@@ -1,5 +1,8 @@
-import nltk
+'''
+Download all necessary nltk packages.
+'''
 
+import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')

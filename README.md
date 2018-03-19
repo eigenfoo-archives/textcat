@@ -10,7 +10,8 @@ A simple Rocchio-tfidf text categorizer.
 ## Installation
 
 To get `textcat` up and running, the following code snippet should suffice on a
-UNIX terminal:
+UNIX terminal (note that depending on your Python distribution, you may need to
+use `pip3` instead of `pip`, and `python3` instead of `python`):
 
 ```
 $ git clone https://github.com/eigenfoo/textcat.git

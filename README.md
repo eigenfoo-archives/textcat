@@ -102,3 +102,10 @@ come from the second corpus, and had its proper nouns (both singular and plural)
 and cardinal numbers stripped. This is admittedly a clunky implementation, as
 there are some articles in the other two corpora with 100 words or fewer, but
 this error seems to cause no grievous problems.
+
+## Performance Evaluation
+
+In order to evaluate the performance of the text categorizer on the second and
+third corpora (for which the test sets were not provided), a shell script
+(`split_corpora.sh`) was written to split off a test set from the training set
+(with about 1/3 of the articles, following the pattern of the first corpus).
